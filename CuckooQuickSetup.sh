@@ -2,6 +2,7 @@
 
 #ASSUMING AN UBUNTU 20.10 WHICH IS A FRESH INSTALL
 #Most of the Tools are listed as per Origial Cuckoo Documentation
+#Execute with sudo access: sudo ./CuckooQuickSetup.sh
 
 #======================================================
 #For Win 7 VM ISO->goes in readme as well
@@ -20,11 +21,11 @@ add-apt-repository universe
 apt install python2		#python-is-python2
 
 curl https://bootstrap.pypa.io/get-pip.py --output get-pip.py
-sudo python2 get-pip.py
+python2 get-pip.py
 pip --version
 
 #optional
-#sudo apt install python3-pip
+#apt install python3-pip
 #pip3 --version
 
 #======================================================
@@ -46,9 +47,9 @@ apt-get install zlib1g-dev 	        #Good/Working
 #======================================================
 Add User
 #======================================================
-sudo adduser cuckoo
-sudo usermod -a -G vboxusers cuckoo
-sudo usermod -a -G libvirtd cuckoo
+adduser cuckoo
+usermod -a -G vboxusers cuckoo
+usermod -a -G libvirtd cuckoo
 
 #======================================================
 #mongodb
@@ -79,7 +80,8 @@ apt-get install virtualbox-ext-pack     #Relevance??to be checked
 #======================================================
 #TCPDump
 #======================================================
-apt-get install tcpdump apparmor-utils
+#Description Required
+apt-get install tcpdump apparmor-utils      
 aa-disable /usr/sbin/tcpdump
 
 apt-get install tcpdump
@@ -113,7 +115,7 @@ apt-get install swig
 #======================================================
 #guacd optional
 #======================================================
-pip install -U pip setuptools
+pip install -U pip setuptools #details&relevance??
 pip install -U cuckoo
 
 
