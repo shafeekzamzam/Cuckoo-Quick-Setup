@@ -1,20 +1,23 @@
 #!/bin/sh
 
 #ASSUMING AN UBUNTU 20.10 WHICH IS A FRESH INSTALL
-Most of the Tools are listed as per Origial Cuckoo Documentation
+#Most of the Tools are listed as per Origial Cuckoo Documentation
 
 #======================================================
-#For Win 7 VM ISO
+#For Win 7 VM ISO->goes in readme as well
 #======================================================
 #wget https://cuckoo.sh/win7ultimate.iso
 
-
+apt-get install git
+apt-get install curl
+apt-get install software-properties-common
 #======================================================
 Python
 #======================================================
-sudo add-apt-repository universe
-#sudo apt-get install python 		#deprecated
-sudo apt install python2		#python-is-python2
+add-apt-repository universe
+
+#apt-get install python 		#deprecated
+apt install python2		#python-is-python2
 
 curl https://bootstrap.pypa.io/get-pip.py --output get-pip.py
 sudo python2 get-pip.py
@@ -28,15 +31,15 @@ pip --version
 Other Libraries
 #======================================================
 
-#sudo apt-get install python-pip 	      #E: Package 'python-pip' has no installation candidate
-sudo apt-get install python-dev 	      #Good/Working
-sudo apt-get install libffi-dev 	      #Good/Working
-sudo apt-get install libssl-dev		      #Good/Working
-sudo apt-get install python-virtualenv 	#E: Package 'python-virtualenv' has no installation candidate
-#pip install virtualenv			            #optional for Cuckoo
-sudo apt-get install python-setuptools	#Good/Working
-sudo apt-get install libjpeg-dev 	      #Good/Working
-sudo apt-get install zlib1g-dev 	      #Good/Working
+#apt-get install python-pip 	      #E: Package 'python-pip' has no installation candidate
+apt-get install python-dev 	        #Good/Working
+apt-get install libffi-dev 	        #Good/Working
+apt-get install libssl-dev		      #Good/Working
+apt-get install python-virtualenv 	#E: Package 'python-virtualenv' has no installation candidate
+#pip install virtualenv			        #optional for Cuckoo
+apt-get install python-setuptools	  #Good/Working
+apt-get install libjpeg-dev 	      #Good/Working
+apt-get install zlib1g-dev 	        #Good/Working
 
 
 #pydeep Optional-to check
@@ -70,50 +73,48 @@ sudo apt-get install postgresql libpq-dev
 #======================================================
 #Virtualbox
 #======================================================
-echo deb http://download.virtualbox.org/virtualbox/debian xenial contrib | sudo tee -a /etc/apt/sources.list.d/virtualbox.list
-wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install virtualbox-5.2
+apt-get install virtualbox
+apt-get install virtualbox-ext-pack     #Relevance??to be checked
 
 #======================================================
 #TCPDump
 #======================================================
-sudo apt-get install tcpdump apparmor-utils
-sudo aa-disable /usr/sbin/tcpdump
+apt-get install tcpdump apparmor-utils
+aa-disable /usr/sbin/tcpdump
 
-sudo apt-get install tcpdump
+apt-get install tcpdump
 
-sudo groupadd pcap
-sudo usermod -a -G pcap cuckoo
-sudo chgrp pcap /usr/sbin/tcpdump
-sudo setcap cap_net_raw,cap_net_admin=eip /usr/sbin/tcpdump
+groupadd pcap
+usermod -a -G pcap cuckoo
+chgrp pcap /usr/sbin/tcpdump
+setcap cap_net_raw,cap_net_admin=eip /usr/sbin/tcpdump
 
 #verify
-getcap /usr/sbin/tcpdump
+echo getcap /usr/sbin/tcpdump
 #/usr/sbin/tcpdump = cap_net_admin,cap_net_raw+eip
 #======================================================
 #Installing Volatility
 #======================================================
 git clone https://github.com/volatilityfoundation/volatility.git
 cd Volatility
-sudo python setup.py install
-
+python setup.py install
+cd ..
 
 #======================================================
 #M2Crypto
 #======================================================
-sudo apt-get install swig
+apt-get install swig
 
-#sudo pip install m2crypto==0.24.0      #Version Error
-sudo -H pip install m2crypto==0.31.0    #Good/Working
+#pip install m2crypto==0.24.0      #Version Error
+-H pip install m2crypto==0.31.0    #Good/Working
 
 
 
 #======================================================
 #guacd optional
 #======================================================
-sudo pip install -U pip setuptools
-sudo pip install -U cuckoo
+pip install -U pip setuptools
+pip install -U cuckoo
 
 
 cuckoo -d
