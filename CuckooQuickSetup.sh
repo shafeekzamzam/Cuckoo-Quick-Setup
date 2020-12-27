@@ -152,6 +152,12 @@ sudo mkdir /opt/cuckoo
 sudo chown cuckoo:cuckoo /opt/cuckoo
 cuckoo --cwd /opt/cuckoo
 
+
+#ifconfig
+#ens33  192.168.217.134
+#lo     127.0.0.1
+
+
 vboxmanage hostonlyif create vboxnet0
 vboxmanage hostonlyif ipconfig vboxnet0 --ip 192.168.56.1
 sudo iptables -A FORWARD -o ens33 -l vboxnet0 -s 192.168.56.0/24 -m conntrack --ctstate NEW -j ACCEPT
