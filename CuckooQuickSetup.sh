@@ -77,6 +77,10 @@ sudo apt-get install postgresql libpq-dev
 apt-get install virtualbox
 apt-get install virtualbox-ext-pack     #Relevance??to be checked
 
+
+#VBoxManage goes here......
+#Assuming win7.iso is available for installation
+
 #======================================================
 #TCPDump
 #======================================================
