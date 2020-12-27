@@ -81,6 +81,34 @@ apt-get install virtualbox-ext-pack     #Relevance??to be checked
 #VBoxManage goes here......
 #Assuming win7.iso is available for installation
 
+
+#VBoxManage snapshot "Win7x64" take "Win7x64_snap" --pause
+#VBoxManage controlvm "Win7x64" poweroff
+#VBoxManage snapshot "Win7x64" restorecurrent
+
+
+#Configuring the Guest VMs
+#Open VirtualBox and create your base VMs - I’m just going to create Windows 7 32-bit & 64-bit VMs called Win10x64 and Win7x64 respectively. They can be small VMs. So give them
+#1 CPU
+#512MB RAM
+#10GB HDD 
+#1 NIC attached to vboxnet0
+#During installation, set the username to cuckoo for all VMs. Wait for the installation to finish.
+#Set a static IP in each VM
+#Win10x64 - 192.168.56.10
+#Win7x64 - 192.168.56.15
+#You will also want to
+#Disable the Windows Firewall
+#Disable UAC (Never Notify)
+#Disable Windows Updates (don't even bother with W10)
+#Download the latest Python 2.7.x for Windows to your Ubuntu server. Host the files a convenient place and fire up a simple web server cd ~/Downloads cp ~/cuckoo/agents/agent.py ~/Downloads python -m SimpleHTTPServer
+#Download the x64 MSI installer and the Cuckoo agent 192.168.51:8000/python-2.7.14.amd64.msi 192.168.51:8000/agent.py
+#Install Python manually in each VM.
+#Start the Cuckoo agent by opening a Command Prompt as Administrator.
+#Whilst the VMs are running, follow these steps to snapshot them (repeat for each VM):
+
+#In the GUI, they should appear as Saved
+
 #======================================================
 #TCPDump
 #======================================================
