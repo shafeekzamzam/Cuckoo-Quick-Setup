@@ -80,34 +80,25 @@ sudo apt-get install virtualbox-ext-pack     #Relevance??to be checked
 
 #VBoxManage goes here......
 #Assuming win7.iso is available for installation
+#========
+#Create VM
+VBoxManage createvm --name $MACHINENAME --ostype "Debian_64" --register --basefolder `pwd`
+#Set memory and network
+VBoxManage modifyvm $MACHINENAME --ioapic on
+VBoxManage modifyvm $MACHINENAME --memory 1024 --vram 128
+VBoxManage modifyvm $MACHINENAME --nic1 nat
+#Create Disk and connect Debian Iso
+VBoxManage createhd --filename `pwd`/$MACHINENAME/$MACHINENAME_DISK.vdi --size 80000 --format VDI
+VBoxManage storagectl $MACHINENAME --name "SATA Controller" --add sata --controller IntelAhci
+VBoxManage storageattach $MACHINENAME --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium  `pwd`/$MACHINENAME/$MACHINENAME_DISK.vdi
+VBoxManage storagectl $MACHINENAME --name "IDE Controller" --add ide --controller PIIX4
+VBoxManage storageattach $MACHINENAME --storagectl "IDE Controller" --port 1 --device 0 --type dvddrive --medium `pwd`/debian.iso
+VBoxManage modifyvm $MACHINENAME --boot1 dvd --boot2 disk --boot3 none --boot4 none
+#=====
 
 
-#VBoxManage snapshot "Win7x64" take "Win7x64_snap" --pause
-#VBoxManage controlvm "Win7x64" poweroff
-#VBoxManage snapshot "Win7x64" restorecurrent
 
 
-#Configuring the Guest VMs
-#Open VirtualBox and create your base VMs - I’m just going to create Windows 7 32-bit & 64-bit VMs called Win10x64 and Win7x64 respectively. They can be small VMs. So give them
-#1 CPU
-#512MB RAM
-#10GB HDD 
-#1 NIC attached to vboxnet0
-#During installation, set the username to cuckoo for all VMs. Wait for the installation to finish.
-#Set a static IP in each VM
-#Win10x64 - 192.168.56.10
-#Win7x64 - 192.168.56.15
-#You will also want to
-#Disable the Windows Firewall
-#Disable UAC (Never Notify)
-#Disable Windows Updates (don't even bother with W10)
-#Download the latest Python 2.7.x for Windows to your Ubuntu server. Host the files a convenient place and fire up a simple web server cd ~/Downloads cp ~/cuckoo/agents/agent.py ~/Downloads python -m SimpleHTTPServer
-#Download the x64 MSI installer and the Cuckoo agent 192.168.51:8000/python-2.7.14.amd64.msi 192.168.51:8000/agent.py
-#Install Python manually in each VM.
-#Start the Cuckoo agent by opening a Command Prompt as Administrator.
-#Whilst the VMs are running, follow these steps to snapshot them (repeat for each VM):
-
-#In the GUI, they should appear as Saved
 
 #======================================================
 #TCPDump
@@ -189,13 +180,62 @@ sudo echo 1 > /proc/sys/net/ipv4/ip_forward
 
 
 
+#=======================================
 
 
 
+#Configuring the Guest VMs
+#Open VirtualBox and create your base VMs - I’m just going to create Windows 7 32-bit & 64-bit VMs called Win10x64 and Win7x64 respectively. They can be small VMs. So give them
+#1 CPU
+#512MB RAM
+#10GB HDD 
+#1 NIC attached to vboxnet0
+#During installation, set the username to cuckoo for all VMs. Wait for the installation to finish.
+#Set a static IP in each VM
+#Win10x64 - 192.168.56.10
+#Win7x64 - 192.168.56.15
+#You will also want to
+#Disable the Windows Firewall
+#Disable UAC (Never Notify)
+#Disable Windows Updates (don't even bother with W10)
+#Download the latest Python 2.7.x for Windows to your Ubuntu server. Host the files a convenient place and fire up a simple web server cd ~/Downloads cp ~/cuckoo/agents/agent.py ~/Downloads python -m SimpleHTTPServer
+#Download the x64 MSI installer and the Cuckoo agent 192.168.51:8000/python-2.7.14.amd64.msi 192.168.51:8000/agent.py
+#Install Python manually in each VM.
+#Start the Cuckoo agent by opening a Command Prompt as Administrator.
+#Whilst the VMs are running, follow these steps to snapshot them (repeat for each VM):
 
+#In the GUI, they should appear as Saved
 
+#==========================
+#change vmsettings network adaptor to vboxnet0
 
+#windows guest
+#cuckoo
+#ipconfig
+#192.168.56.101
+#255.255.255.0
+#192.168.56.1
+#8.8.8.8
+#8.8.4.4
+#validate settings upon exit
 
+##check ping www.google.com
+#install guest addition
+#chrome
+#python 2.7 install
+#pypi.org/project/pillow/#files  =>pillow-5.1.0 win32 py27
+
+#restart
+#share folder access to copy agents
+
+#firewall disable
+#uac disbale
+
+#take snapshot
+#take clone
+#VBoxManage snapshot "Win7x64" take "Win7x64_snap" --pause
+#VBoxManage controlvm "Win7x64" poweroff
+#VBoxManage snapshot "Win7x64" restorecurrent
 
 
 
