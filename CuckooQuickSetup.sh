@@ -2,23 +2,23 @@
 
 #ASSUMING AN UBUNTU 20.10 WHICH IS A FRESH INSTALL
 #Most of the Tools are listed as per Origial Cuckoo Documentation
-#Execute with sudo access: sudo ./CuckooQuickSetup.sh
+#Execute with sudo access:  ./CuckooQuickSetup.sh
 
 #======================================================
 #For Win 7 VM ISO->goes in readme as well
 #======================================================
 #wget https://cuckoo.sh/win7ultimate.iso
 
-apt-get install git
-apt-get install curl
-apt-get install software-properties-common
+sudo apt-get install git
+sudo apt-get install curl
+sudo apt-get install software-properties-common
 #======================================================
 Python
 #======================================================
-add-apt-repository universe
+sudo add-apt-repository universe
 
 #apt-get install python 		#deprecated
-apt install python2		#python-is-python2
+sudo apt install python2		#python-is-python2
 
 curl https://bootstrap.pypa.io/get-pip.py --output get-pip.py
 python2 get-pip.py
@@ -32,24 +32,24 @@ pip --version
 Other Libraries
 #======================================================
 
-#apt-get install python-pip 	      #E: Package 'python-pip' has no installation candidate
-apt-get install python-dev 	        #Good/Working
-apt-get install libffi-dev 	        #Good/Working
-apt-get install libssl-dev		      #Good/Working
-apt-get install python-virtualenv 	#E: Package 'python-virtualenv' has no installation candidate
+#sudo apt-get install python-pip 	      #E: Package 'python-pip' has no installation candidate
+sudo apt-get install python-dev 	        #Good/Working
+sudo apt-get install libffi-dev 	        #Good/Working
+sudo apt-get install libssl-dev		      #Good/Working
+sudo apt-get install python-virtualenv 	#E: Package 'python-virtualenv' has no installation candidate
 #pip install virtualenv			        #optional for Cuckoo
-apt-get install python-setuptools	  #Good/Working
-apt-get install libjpeg-dev 	      #Good/Working
-apt-get install zlib1g-dev 	        #Good/Working
+sudo apt-get install python-setuptools	  #Good/Working
+sudo apt-get install libjpeg-dev 	      #Good/Working
+sudo apt-get install zlib1g-dev 	        #Good/Working
 
 
 #pydeep Optional-to check
 #======================================================
 Add User
 #======================================================
-adduser cuckoo
-usermod -a -G vboxusers cuckoo
-usermod -a -G libvirtd cuckoo
+sudo adduser cuckoo
+sudo usermod -a -G vboxusers cuckoo
+sudo usermod -a -G libvirtd cuckoo
 
 #======================================================
 #mongodb
@@ -74,8 +74,8 @@ sudo apt-get install postgresql libpq-dev
 #======================================================
 #Virtualbox
 #======================================================
-apt-get install virtualbox
-apt-get install virtualbox-ext-pack     #Relevance??to be checked
+sudo apt-get install virtualbox
+sudo apt-get install virtualbox-ext-pack     #Relevance??to be checked
 
 
 #VBoxManage goes here......
@@ -113,10 +113,10 @@ apt-get install virtualbox-ext-pack     #Relevance??to be checked
 #TCPDump
 #======================================================
 #Description Required
-apt-get install tcpdump apparmor-utils      
-aa-disable /usr/sbin/tcpdump
+sudo apt-get install tcpdump apparmor-utils      
+sudo aa-disable /usr/sbin/tcpdump
 
-apt-get install tcpdump
+sudo apt-get install tcpdump
 
 groupadd pcap
 usermod -a -G pcap cuckoo
@@ -137,29 +137,54 @@ cd ..
 #======================================================
 #M2Crypto
 #======================================================
-apt-get install swig
+sudo apt-get install swig
 
-#pip install m2crypto==0.24.0      #Version Error
--H pip install m2crypto==0.31.0    #Good/Working
+#sudo pip install m2crypto==0.24.0      #Version Error
+sudo -H pip install m2crypto==0.31.0    #Good/Working
 
 
 
 #======================================================
 #guacd optional
 #======================================================
-pip install -U pip setuptools #details&relevance??
-pip install -U cuckoo
+sudo pip install -U pip setuptools #details&relevance??
+sudo pip install -U cuckoo
 
 
 cuckoo -d
 
 
 
+sudo pip install distorm3
+
+sudo mkdir /opt/cuckoo
+sudo chown cuckoo:cuckoo /opt/cuckoo
+cuckoo --cwd /opt/cuckoo
+
+vboxmanage hostonlyif create vboxnet0
+vboxmanage hostonlyif ipconfig vboxnet0 --ip 192.168.56.1
+sudo iptables -A FORWARD -o ens33 -l vboxnet0 -s 192.168.56.0/24 -m conntrack --ctstate NEW -j ACCEPT
+sudo iptables -A FORWARD -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+sudo iptables -A POSTROUTING -t nat -j MASQUERADE
+sudo echo 1 > /proc/sys/net/ipv4/ip_forward
 
 
+# sudo iptables -t nat -A POSTROUTING -o eth0 -s 192.168.56.0/24 -j MASQUERADE
 
+# Default drop.
+# sudo iptables -P FORWARD DROP
 
+# Existing connections.
+# sudo iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
 
+# Accept connections from vboxnet to the whole internet.
+# sudo iptables -A FORWARD -s 192.168.56.0/24 -j ACCEPT
+
+# Internal traffic.
+# sudo iptables -A FORWARD -s 192.168.56.0/24 -d 192.168.56.0/24 -j ACCEPT
+
+# Log stuff that reaches this point (could be noisy).
+# sudo iptables -A FORWARD -j LOG
 
 
 
