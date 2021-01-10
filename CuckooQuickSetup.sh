@@ -202,6 +202,12 @@ cuckoo --cwd /opt/cuckoo
 # sudo iptables -A FORWARD -j LOG
 
 #=======================================
+#   Simple Web Server
+#=======================================
+python2 -m SimpleHTTPServer 80
+#python3 -m http.server 80
+
+#=======================================
 #   Preparing Guest VM's --Tobe made as a new shell script
 #=======================================
 #Download the latest Python 2.7.x for Windows to your Ubuntu server. Host the files a convenient place and fire up a SIMPLE WEB SERVER 
