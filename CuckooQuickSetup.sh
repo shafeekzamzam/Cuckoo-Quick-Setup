@@ -134,26 +134,38 @@ sudo apt-get install swig
 #sudo pip install m2crypto==0.24.0      #Version Error
 sudo -H pip install m2crypto==0.31.0    #Good/Working
 
+#======================================================
+#         Distorm3
+#======================================================
+sudo pip install distorm3
+
 
 
 #======================================================
-#guacd optional
+#         Guacd optional     --To Find Out
+#======================================================
+
+
+#======================================================
+#         SetupTools & Cuckoo
 #======================================================
 sudo pip install -U pip setuptools #details&relevance??
 sudo pip install -U cuckoo
-
 
 cuckoo -d
 
 
 
-sudo pip install distorm3
+
+
 
 sudo mkdir /opt/cuckoo
 sudo chown cuckoo:cuckoo /opt/cuckoo
 cuckoo --cwd /opt/cuckoo
 
-
+#======================================================
+#         Configuring Ubuntu Firewall
+#======================================================
 #ifconfig
 #ens33  192.168.217.134
 #lo     127.0.0.1
@@ -184,39 +196,40 @@ sudo echo 1 > /proc/sys/net/ipv4/ip_forward
 # Log stuff that reaches this point (could be noisy).
 # sudo iptables -A FORWARD -j LOG
 
+#=======================================
+#   Setting up Host Network Adapter --To Automate
+#=======================================
+
+#change vmsettings network adaptor to vboxnet0
+
+
+
+
 
 
 
 #=======================================
+#   Preparing Guest VM's
+#=======================================
+#Download the latest Python 2.7.x for Windows to your Ubuntu server. Host the files a convenient place and fire up a SIMPLE WEB SERVER 
+#cd ~/Downloads cp ~/cuckoo/agents/agent.py ~/Downloads python -m SimpleHTTPServer
+#Download the x64 MSI installer and the Cuckoo agent 192.168.51:8000/python-2.7.14.amd64.msi 192.168.51:8000/agent.py
 
+#Install Python manually in each VM.
 
+#Start the Cuckoo agent by opening a Command Prompt as Administrator.
 
-#Configuring the Guest VMs
-#Open VirtualBox and create your base VMs - I’m just going to create Windows 7 32-bit & 64-bit VMs called Win10x64 and Win7x64 respectively. They can be small VMs. So give them
-#1 CPU
-#512MB RAM
-#10GB HDD 
-#1 NIC attached to vboxnet0
-#During installation, set the username to cuckoo for all VMs. Wait for the installation to finish.
-#Set a static IP in each VM
-#Win10x64 - 192.168.56.10
-#Win7x64 - 192.168.56.15
-#You will also want to
+#check ping www.google.com
+#Install Guest addition //Find an alternate solution
+#Install Google Chrome
+#python 2.7 install
+#pypi.org/project/pillow/#files  =>pillow-5.1.0 win32 py27
+
 #Disable the Windows Firewall
 #Disable UAC (Never Notify)
 #Disable Windows Updates (don't even bother with W10)
-#Download the latest Python 2.7.x for Windows to your Ubuntu server. Host the files a convenient place and fire up a simple web server cd ~/Downloads cp ~/cuckoo/agents/agent.py ~/Downloads python -m SimpleHTTPServer
-#Download the x64 MSI installer and the Cuckoo agent 192.168.51:8000/python-2.7.14.amd64.msi 192.168.51:8000/agent.py
-#Install Python manually in each VM.
-#Start the Cuckoo agent by opening a Command Prompt as Administrator.
-#Whilst the VMs are running, follow these steps to snapshot them (repeat for each VM):
 
-#In the GUI, they should appear as Saved
-
-#==========================
-#change vmsettings network adaptor to vboxnet0
-
-#windows guest
+#Inside VM Guest Network Settings
 #cuckoo
 #ipconfig
 #192.168.56.101
@@ -226,23 +239,23 @@ sudo echo 1 > /proc/sys/net/ipv4/ip_forward
 #8.8.4.4
 #validate settings upon exit
 
-##check ping www.google.com
-#install guest addition
-#chrome
-#python 2.7 install
-#pypi.org/project/pillow/#files  =>pillow-5.1.0 win32 py27
+
 
 #restart
-#share folder access to copy agents
+#share folder access to copy agents //Better method to select
 
-#firewall disable
-#uac disbale
 
-#take snapshot
+
+
 #take clone
+#take snapshot
+
 #VBoxManage snapshot "Win7x64" take "Win7x64_snap" --pause
 #VBoxManage controlvm "Win7x64" poweroff
 #VBoxManage snapshot "Win7x64" restorecurrent
+
+#==========================
+
 
 
 
