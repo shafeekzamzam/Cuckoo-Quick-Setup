@@ -16,7 +16,7 @@ sudo apt-get install git -y
 sudo apt-get install curl -y
 sudo apt-get install software-properties-common -y
 #======================================================
-Python
+#Python
 #======================================================
 sudo add-apt-repository universe
 
@@ -33,7 +33,7 @@ sudo apt install python3-pip -y
 pip3 --version
 
 #======================================================
-Other Libraries
+#Other Libraries
 #======================================================
 
 #sudo apt-get install python-pip 	          #E: Package 'python-pip' has no installation candidate
@@ -50,7 +50,7 @@ sudo apt-get install zlib1g-dev -y          #Good/Working
 #pydeep Optional-to check
 
 #======================================================
-Add User  #relevence to check??
+#Add User  #relevence to check??
 #======================================================
 sudo adduser cuckoo                         #Explaination Required
 sudo usermod -a -G vboxusers cuckoo         #Explaination Required
