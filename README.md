@@ -27,3 +27,9 @@ List of Tools & Version (table)
 | Disable Windows AutoUpdate |  | 
 | Disable Firewall |  | 
 
+First Install the basic Cuckoo setup in Ubuntu using a Normal User Privilege Install of CuckooQuickSetup.sh and In Parallel download the Win7 ISO Image
+
+Now, do the VM Installation and Configuration using AutoCreateVM.sh
+
+Using Simple Web Server, Import the Agent inside the VM
+
