@@ -22,14 +22,15 @@ sudo add-apt-repository universe
 
 #apt-get install python 		#deprecated
 sudo apt install python2 -y		#python-is-python2
+sudo apt install python3 -y		#python-is-python2
 
 curl https://bootstrap.pypa.io/get-pip.py --output get-pip.py
 python2 get-pip.py
 pip --version
 
 #optional
-#apt install python3-pip
-#pip3 --version
+sudo apt install python3-pip -y
+pip3 --version
 
 #======================================================
 Other Libraries
