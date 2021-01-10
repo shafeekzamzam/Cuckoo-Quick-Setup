@@ -1,83 +1,76 @@
 #!/bin/sh
 
 #ASSUMING AN UBUNTU 20.10 WHICH IS A FRESH INSTALL
-#Cuckoo 2.0.7
+#Cuckoo v2.0.7
 #Most of the Tools are listed as per Origial Cuckoo Documentation
 #Execute with NORMAL access:  ./CuckooQuickSetup.sh
 
-#Recheck if Sudo or Normal execution required for all installations
+#TODO:-Recheck if Sudo or Normal execution required for all installations
 
 #======================================================
 #For Win 7 VM ISO->goes in readme as well
 #======================================================
 #wget https://cuckoo.sh/win7ultimate.iso
-
+#======================================================
+#       Basic Tools
+#======================================================
 sudo apt-get install git -y
 sudo apt-get install curl -y
 sudo apt-get install software-properties-common -y
 #======================================================
-#Python
+#       Python
 #======================================================
 sudo add-apt-repository universe
 
 #apt-get install python 		#deprecated
 sudo apt install python2 -y		#python-is-python2
-sudo apt install python3 -y		#python-is-python2
+#sudo apt install python3 -y	#Python 3
 
 curl https://bootstrap.pypa.io/get-pip.py --output get-pip.py
-python2 get-pip.py
-pip --version
+sudo python2 get-pip.py
+echo -e "\e[44m" python --version
+echo -e "\e[44m" pip --version
 
-#optional
-sudo apt install python3-pip -y
-pip3 --version
+#Optional
+#sudo apt install python3-pip -y
+#pip3 --version
 
 #======================================================
-#Other Libraries
+#       Other Python Libraries
 #======================================================
-
-#sudo apt-get install python-pip 	          #E: Package 'python-pip' has no installation candidate
-sudo apt-get install python-dev -y 	        #Good/Working
-sudo apt-get install libffi-dev -y 	        #Good/Working
-sudo apt-get install libssl-dev -y		      #Good/Working
-sudo apt-get install python-virtualenv -y 	#E: Package 'python-virtualenv' has no installation candidate
+#sudo apt-get install python-pip 	            #E: Package 'python-pip' has no installation candidate
+sudo apt-get install python-dev -y 	            #Good/Working
+sudo apt-get install libffi-dev -y 	            #Good/Working
+sudo apt-get install libssl-dev -y		        #Good/Working
+sudo apt-get install python-virtualenv -y 	    #E: Package 'python-virtualenv' has no installation candidate
 #pip install virtualenv			                #optional for Cuckoo
-sudo apt-get install python-setuptools -y   #Good/Working
-sudo apt-get install libjpeg-dev -y         #Good/Working
-sudo apt-get install zlib1g-dev -y          #Good/Working
-
+sudo apt-get install python-setuptools -y       #Good/Working
+sudo apt-get install libjpeg-dev -y             #Good/Working
+sudo apt-get install zlib1g-dev -y              #Good/Working
 
 #pydeep Optional-to check
 
 #======================================================
-#Add User  #relevence to check??
+#       Add User - Cuckoo #relevence to check??
 #======================================================
 sudo adduser cuckoo                         #Explaination Required
-sudo usermod -a -G vboxusers cuckoo         #Explaination Required
-sudo usermod -a -G libvirtd cuckoo          #Explaination Required
+#sudo usermod -a -G vboxusers cuckoo         #If you’re using VirtualBox, make sure the new user belongs to the “vboxusers” group (or the group you used to run VirtualBox):
 
 #======================================================
-#mongodb
+#       MongoDB
 #https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-20-04
 #======================================================
-
 curl -fsSL https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
-
 apt-key list
-
 echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
-
 sudo apt update
-
 sudo apt install mongodb-org -y
-
 #======================================================
-#PostgreSQL
+#       PostgreSQL
 #======================================================
 sudo apt-get install postgresql libpq-dev -y
-
 #======================================================
-#Virtualbox
+#       Virtualbox
 #======================================================
 sudo apt-get install virtualbox -y
 sudo apt-get install virtualbox-ext-pack -y   #Relevance??to be checked
@@ -107,9 +100,11 @@ sudo apt-get install virtualbox-ext-pack -y   #Relevance??to be checked
 
 
 #======================================================
-#TCPDump
+#       TCPDump
 #======================================================
-#Description Required
+#tcpdump is a data-network packet analyzer computer program that runs under a command line 
+#interface. It allows the user to display TCP/IP and other packets being transmitted or 
+#received over a network to which the computer is attached.
 sudo apt-get install tcpdump apparmor-utils -y     
 sudo aa-disable /usr/sbin/tcpdump
 
@@ -118,40 +113,39 @@ usermod -a -G pcap cuckoo                                 #Explaination Required
 chgrp pcap /usr/sbin/tcpdump                              #Explaination Required
 setcap cap_net_raw,cap_net_admin=eip /usr/sbin/tcpdump    #Explaination Required
 
-#verify                                                   tobe echoed in blue color
-echo getcap /usr/sbin/tcpdump
+#verifying the Setting
+echo -e "\e[44m" getcap /usr/sbin/tcpdump  " ++ OutputValue"
+echo -e "\e[44m" "cap_net_admin,cap_net_raw+eip"  " ++ ReferenceValue"
 #/usr/sbin/tcpdump = cap_net_admin,cap_net_raw+eip
 #======================================================
-#Installing Volatility
+#       Volatility
 #======================================================
 #Description Required
 git clone https://github.com/volatilityfoundation/volatility.git
 cd Volatility
 python setup.py install
 cd ..
-
 #======================================================
-#M2Crypto
+#       M2Crypto
 #======================================================
 #Description Required
 sudo apt-get install swig
 
 #sudo pip install m2crypto==0.24.0      #Version Error
 sudo -H pip install m2crypto==0.31.0    #Good/Working
-
 #======================================================
 #         Distorm3
 #======================================================
 #Description Required
 sudo pip install distorm3
-
-
-
 #======================================================
-#         Guacd optional     --To Find Out
+#         Guacd optional     
 #======================================================
+#guacd is an optional service that provides the translation layer for RDP, VNC, and SSH 
+#for the remote control functionality in the Cuckoo web interface.
+#DEPENDENCY:Virtual Box Extension Pack
 
-
+#sudo apt install libguac-client-rdp0 libguac-client-vnc0 libguac-client-ssh0 guacd  #ERROR:UNABLE TO LOCATE PACKAGE
 #======================================================
 #         SetupTools & Cuckoo
 #======================================================
@@ -160,15 +154,9 @@ sudo pip install -U cuckoo
 
 cuckoo -d
 
-
-
-
-
-
-sudo mkdir /opt/cuckoo
-sudo chown cuckoo:cuckoo /opt/cuckoo
-cuckoo --cwd /opt/cuckoo
-
+sudo mkdir /opt/cuckoo                  #
+sudo chown cuckoo:cuckoo /opt/cuckoo    #
+cuckoo --cwd /opt/cuckoo                #
 #======================================================
 #         Configuring Host Network Adapater & Firewall
 #======================================================
