@@ -28,8 +28,8 @@ sudo apt install python2 -y		#python-is-python2
 
 curl https://bootstrap.pypa.io/get-pip.py --output get-pip.py
 sudo python2 get-pip.py
-echo -e "\e[44m" python --version
-echo -e "\e[44m" pip --version
+python --version
+pip --version
 
 #Optional
 #sudo apt install python3-pip -y
@@ -114,8 +114,7 @@ chgrp pcap /usr/sbin/tcpdump                              #Explaination Required
 setcap cap_net_raw,cap_net_admin=eip /usr/sbin/tcpdump    #Explaination Required
 
 #verifying the Setting
-echo -e "\e[44m" getcap /usr/sbin/tcpdump  " ++ OutputValue"
-echo -e "\e[44m" "cap_net_admin,cap_net_raw+eip"  " ++ ReferenceValue"
+echo getcap /usr/sbin/tcpdump  
 #/usr/sbin/tcpdump = cap_net_admin,cap_net_raw+eip
 #======================================================
 #       Volatility
@@ -129,7 +128,7 @@ cd ..
 #       M2Crypto
 #======================================================
 #Description Required
-sudo apt-get install swig
+sudo apt-get install swig -y
 
 #sudo pip install m2crypto==0.24.0      #Version Error
 sudo -H pip install m2crypto==0.31.0    #Good/Working
