@@ -37,3 +37,8 @@ Now, do the VM Installation and Configuration using AutoCreateVM.sh
 
 Using Simple Web Server, Import the Agent inside the VM
 
+
+sudo apt-get install git
+git clone https://github.com/shafeekzamzam/Cuckoo-Quick-Setup.git
+chmod +rwx CuckooQuickSetup.sh
+sudo ./CuckooQuickSetup.sh
