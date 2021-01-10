@@ -49,3 +49,51 @@ VBoxManage modifyvm $MACHINENAME --vrdemulticon on --vrdeport 10001
 
 #Start the VM
 VBoxHeadless --startvm $MACHINENAME
+
+
+
+#=======================================
+#   Preparing Guest VM's --Tobe made as a new shell script
+#=======================================
+#Download the latest Python 2.7.x for Windows to your Ubuntu server. Host the files a convenient place and fire up a SIMPLE WEB SERVER 
+#cd ~/Downloads cp ~/cuckoo/agents/agent.py ~/Downloads python -m SimpleHTTPServer
+#Download the x64 MSI installer and the Cuckoo agent 192.168.51:8000/python-2.7.14.amd64.msi 192.168.51:8000/agent.py
+
+#Install Python manually in each VM.
+
+#Start the Cuckoo agent by opening a Command Prompt as Administrator.
+
+#check ping www.google.com
+#Install Guest addition //Find an alternate solution
+#Install Google Chrome
+#python 2.7 install
+#pypi.org/project/pillow/#files  =>pillow-5.1.0 win32 py27
+
+#Disable the Windows Firewall
+#Disable UAC (Never Notify)
+#Disable Windows Updates (don't even bother with W10)
+
+#Inside VM Guest Network Settings
+#cuckoo
+#ipconfig
+#192.168.56.101
+#255.255.255.0
+#192.168.56.1
+#8.8.8.8
+#8.8.4.4
+#validate settings upon exit
+
+
+
+#restart
+#share folder access to copy agents //Better method to select
+
+
+
+
+#take clone
+#take snapshot
+
+#VBoxManage snapshot "Win7x64" take "Win7x64_snap" --pause
+#VBoxManage controlvm "Win7x64" poweroff
+#VBoxManage snapshot "Win7x64" restorecurrent
