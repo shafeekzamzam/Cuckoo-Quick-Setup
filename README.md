@@ -40,5 +40,6 @@ Using Simple Web Server, Import the Agent inside the VM
 
 sudo apt-get install git <br>
 git clone https://github.com/shafeekzamzam/Cuckoo-Quick-Setup.git <br>
+cd Cuckoo-Quick-Setup/
 chmod +rwx CuckooQuickSetup.sh <br>
 sudo ./CuckooQuickSetup.sh<br>
