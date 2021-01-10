@@ -119,15 +119,21 @@ echo getcap /usr/sbin/tcpdump
 #======================================================
 #       Volatility
 #======================================================
-#Description Required
+#perform forensic analysis on memory dumps of the given sample. It can automatically provide additional 
+#visibility into deep modifications in the operating system as well as detect the presence of rootkit technology 
+#that escaped the monitoring domain of Cuckoo’s analyzer.
+
 git clone https://github.com/volatilityfoundation/volatility.git
 cd Volatility
-python setup.py install
+sudo python setup.py install
 cd ..
 #======================================================
 #       M2Crypto
 #======================================================
-#Description Required
+#M2Crypto is a complete Python wrapper of OpenSSL that features RSA, DA, DH, EC, HMACs, and more. 
+#We will be installing M2Crypto for adding cryptographic support and security to your Python applications.
+#Currently, M2Crypto library is only supported when SWIG has been installed
+
 sudo apt-get install swig -y
 
 #sudo pip install m2crypto==0.24.0      #Version Error
@@ -135,7 +141,8 @@ sudo -H pip install m2crypto==0.31.0    #Good/Working
 #======================================================
 #         Distorm3
 #======================================================
-#Description Required
+#diStorm3 is a decomposer, which means it takes an instruction and returns a binary 
+#structure which describes it rather than static text, which is great for advanced binary code analysis
 sudo pip install distorm3
 #======================================================
 #         Guacd optional     
@@ -189,11 +196,20 @@ cuckoo --cwd /opt/cuckoo                #
 # Log stuff that reaches this point (could be noisy).
 # sudo iptables -A FORWARD -j LOG
 
+#The Below Components are Additional To which has been mentioned in the Cuckoo Documentation
 #=======================================
-#   Simple Web Server
+#   Simple Web Server -Not Good /To Be Changed
 #=======================================
 python2 -m SimpleHTTPServer 80
 #python3 -m http.server 80
+
+#=======================================
+#Installing YARA
+#=======================================
+
+#=======================================
+#Installing FTP Server
+#=======================================
 
 
 
