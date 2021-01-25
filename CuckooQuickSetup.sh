@@ -8,7 +8,7 @@
 #TODO:-Recheck if Sudo or Normal execution required for all installations
 
 #======================================================
-#For Win 7 VM ISO->goes in readme as well
+#       For Win 7 VM ISO->goes in readme as well
 #======================================================
 #wget https://cuckoo.sh/win7ultimate.iso
 #======================================================
@@ -58,7 +58,7 @@ sudo adduser cuckoo                         #Explaination Required
 
 #======================================================
 #       MongoDB
-#https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-20-04
+#       https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-20-04
 #======================================================
 curl -fsSL https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
 apt-key list
@@ -105,6 +105,7 @@ sudo apt-get install virtualbox-ext-pack -y   #Relevance??to be checked
 #tcpdump is a data-network packet analyzer computer program that runs under a command line 
 #interface. It allows the user to display TCP/IP and other packets being transmitted or 
 #received over a network to which the computer is attached.
+#Note: You must be able to run tcpdump as non-root user (user that is later used to run Cuckoo) otherwise Cuckoo will complain later.
 sudo apt-get install tcpdump apparmor-utils -y     
 sudo aa-disable /usr/sbin/tcpdump
 
