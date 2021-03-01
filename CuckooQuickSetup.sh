@@ -207,11 +207,64 @@ python2 -m SimpleHTTPServer 80
 #=======================================
 #Installing YARA
 #=======================================
+#================================================================================================================
+#Installing YARA--verification pending
+#================================================================================================================
+#YARA is a tool that helps malware researchers identify and classify malware samples. With YARA we can create descriptions of malware families based on textual or binary patterns.
+#Now with this tool, we will be able to identify the type of malware when our sample is analyzed.
+#Download the latest version of YARA from the link: https://github.com/VirusTotal/yara/releases
 
-#=======================================
-#Installing FTP Server
-#=======================================
 
+#sudo tar -zxvf yara-3.8.1.tar.gz 
+
+#Navigate inside the YARA folder and type below commands:
+#sudo ./bootstrap.sh
+#sudo ./configure --with-crypto --enable-magic –enable-cuckoo
+#sudo make
+#sudo make install
+#sudo -H pip install yara-python
+
+#================================================================================================================
+#Installing FTP Server--Manual Config Required
+#================================================================================================================
+#Now we will be installing an anonymous FTP server called vsftpd. This is the simplest way to share files between the Virtual machines and your host machine.
+#First, we have to create a publicly accessible folder. Follow the commands below:
+
+#$ sudo mkdir -p /home/<replace_your_username>/vmshared/pub
+#$ sudo chown -R cuckoo:cuckoo /home/<replace_your_username>
+#$ sudo chmod -R ug=rwX,o=rX /home/<replace_your_username>/vmshared/
+#$ sudo chmod -R ugo=rwX /home/<replace_your_username>/vmshared/pub
+#Then install vsftpd:
+
+#$ sudo apt-get install vsftpd
+#Now after installing, edit the vsftpd.conf file:
+
+#$ sudo nano /etc/vsftpd.conf
+#Change listen to YES
+#Change listen_ipv6 to NO
+#Change anonymous_enable to YES
+
+#Now, uncomment the following lines:
+
+#write_enable=YES
+#anon_upload_enable=YES
+#anon_mkdir_write_enable=YES
+
+#And add the following lines at the bottom:
+#listen_address=192.168.100.1
+#listen_port=2121
+#anon_root=/home/cuckoo/vmshared
+#anon_umask=000
+#chown_upload_mode=0666
+#pasv_enable=Yes
+#pasv_min_port=10090
+#pasv_max_port=10100
+
+#Restart the service:
+#$ sudo service vsftpd restart
+
+#Now the VMs can read /home/samy/vmshared and can write to /home/samy/vmshard/pub
+#We can now access the FTP server from the Windows VM by typing in ftp://192.168.56.1:2121 into any explorer window.
 
 
 
